@@ -34,6 +34,8 @@
    * M665: Set delta configurations
    *
    *    H = delta height
+   *    D = adjust delta height by a deviation
+   *    A = calculate delta height to current position
    *    L = diagonal rod
    *    R = delta radius
    *    S = segments per second
@@ -45,6 +47,7 @@
   void GcodeSuite::M665() {
     if (parser.seen('H')) delta_height                   = parser.value_linear_units();
     if (parser.seen('D')) delta_height                   += parser.value_linear_units();
+    if (parser.seen('A')) delta_height                   = delta_height-current_position[Z_AXIS];
     if (parser.seen('L')) delta_diagonal_rod             = parser.value_linear_units();
     if (parser.seen('R')) delta_radius                   = parser.value_linear_units();
     if (parser.seen('S')) delta_segments_per_second      = parser.value_float();
